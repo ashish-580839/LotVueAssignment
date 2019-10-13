@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html ng-app="lotvueAssignment">
+  <head>
+    <title>LotVueAssignment</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all'  %>
+
+
+
+  </head>
+
+  <body ng-controller="RootController">
+    <%= yield %>
+  </body>
+
+  <%= javascript_include_tag 'application' %>
+</html>
