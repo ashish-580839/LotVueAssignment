@@ -1,9 +1,15 @@
-angular.module('lotvueAssignment').controller('UsersController', ['$scope','users','$state','UserService', 'RoleService','$uibModal', function ($scope,users,$state,UserService,RoleService,$uibModal) {
+angular.module('lotvueAssignment').controller('UsersController', ['$scope','users','$state','UserService', 'RoleService','$uibModal','activeRoles', function ($scope,users,$state,UserService,RoleService,$uibModal,activeRoles) {
 
   var $ctrl = this;
   $ctrl.animationsEnabled = true;
 
   $ctrl.users = users.users;
+
+  $ctrl.activeRoles = activeRoles.roles;
+
+  if($ctrl.activeRoles.length > 0){
+    $ctrl.selectedRole = $ctrl.activeRoles[0].id;
+  }
 
   $scope.newUser = {};
 
@@ -39,6 +45,21 @@ angular.module('lotvueAssignment').controller('UsersController', ['$scope','user
     });
   };
 
+  $scope.loadFilteredUsers = function(roleFiltered){
+
+    var params = {active_role: true } ;
+    if(roleFiltered){
+      params['role_id'] = $ctrl.selectedRole;
+    }
+    console.log(params);
+    UserService.query(params).$promise.then(function(resp) {
+      $ctrl.users = resp.users;
+
+    })
+    .catch(function(resp) {
+
+    });
+  }
 
 
 }]);

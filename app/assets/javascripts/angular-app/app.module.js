@@ -4,7 +4,8 @@ angular.module('lotvueAssignment', [
         'templates', // Angular rails templates module
         'ui.router',
         'angular-loading-bar',
-        'ui.bootstrap'
+        'ui.bootstrap',
+        'ngFileUpload'
     ]);
 
 angular.module('lotvueAssignment')

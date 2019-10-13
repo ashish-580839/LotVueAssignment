@@ -1,18 +1,19 @@
 class UsersController < ApplicationController
 
-  before_action :set_user, only: [:update, :show]
+  before_action :set_user, only: [:update, :add_image]
 
   def index
-    @users = User.includes(:roles).all
+    @users = User.filter(search_params).includes(:roles).with_attached_images
     if @users.length==0
-      render json: {users: []}, status: :ok
+      render json: {users: []}, status: :ok, include: [:roles]
     else
       render json: @users, status: :ok
     end
   end
 
   def show
-    render json: @user, status: :ok, include: []
+    @user = User.includes(:roles, :user_metas).with_attached_images.find(params[:id])
+    render json: @user, status: :ok
   end
 
 
@@ -35,6 +36,15 @@ class UsersController < ApplicationController
 
   end
 
+
+  def add_image
+    if @user.images.attach(params[:image])
+      render json: @user, status: :ok
+    else
+      render json: {errors: ["Something went wrong"]}, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def set_user
@@ -46,7 +56,7 @@ class UsersController < ApplicationController
   end
 
   def search_params
-    params.permit([:role_name])
+    params.permit([:active_role, :role_id ])
   end
 
 end

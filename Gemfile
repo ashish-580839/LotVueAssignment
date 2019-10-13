@@ -74,3 +74,5 @@ gem 'kaminari'
 gem "font-awesome-rails"
 
 gem 'angular-rails-templates'
+
+gem "aws-sdk-s3", require: false

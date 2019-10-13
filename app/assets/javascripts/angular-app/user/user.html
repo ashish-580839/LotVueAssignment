@@ -66,4 +66,32 @@
     </tbody>
   </table>
 
+  <legend>
+    Image
+  </legend>
+
+  <div class="btn btn-default" ngf-select="upload($file)" ngf-accept="'image/*'"
+  ngf-pattern="'image/*'"  ngf-max-size="'1MB'" >
+  Add Image</div>
+
+  <br>
+  <br>
+  <table class="table table-bordered">
+    <thead>
+      <th>Image</th>
+      <th>Action</th>
+    </thead>
+    <tbody>
+      <tr ng-repeat="image in $ctrl.user.images">
+        <td>
+          <img style="max-height: 200px; max-width: 200px;"  ng-src ="{{image}}" />
+        </td>
+
+        <td>
+          &nbsp;
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
 </div>

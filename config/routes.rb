@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: [:index, :create ,:update, :show] do
+    member do
+      post :add_image
+    end
   end
 
   resources :user_metas, only: [:index, :create, :update, :destroy ] do

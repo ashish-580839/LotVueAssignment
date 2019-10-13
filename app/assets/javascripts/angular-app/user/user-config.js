@@ -7,8 +7,11 @@ angular.module('lotvueAssignment').config(['$stateProvider', function($stateProv
             templateUrl: "angular-app/user/users.html",
             resolve: {
               users: ['UserService',function(UserService){
-                return UserService.query().$promise;
+                return UserService.query({active_role: true}).$promise;
               }],
+              activeRoles: ['RoleService',function(RoleService){
+                return RoleService.query({is_active: true}).$promise;
+              }]
             }
           })
           .state('container.public.user', {
@@ -22,10 +25,7 @@ angular.module('lotvueAssignment').config(['$stateProvider', function($stateProv
                 }],
                 user: ['userId','UserService',function(userId,UserService){
                   return UserService.get({id: userId}).$promise;
-                }],
-                metas: ['userId','UserMetaService',function(userId,UserMetaService){
-                  return UserMetaService.query({user_id: userId}).$promise;
-                }],
+                }]
               }
             })
 }]);

@@ -1,4 +1,4 @@
-angular.module('lotvueAssignment').controller('UserController', ['$scope','user','metas','$state','UserMetaService','$uibModal', function ($scope,user,metas,$state,UserMetaService,$uibModal) {
+angular.module('lotvueAssignment').controller('UserController', ['$scope','user','$state','UserMetaService','$uibModal', 'Upload', function ($scope,user,$state,UserMetaService,$uibModal,Upload) {
 
   var $ctrl = this;
 
@@ -6,7 +6,7 @@ angular.module('lotvueAssignment').controller('UserController', ['$scope','user'
 
   $ctrl.user = user.user;
 
-  $ctrl.metaDatas = metas.user_meta;
+  $ctrl.metaDatas = $ctrl.user.user_metas;
 
   $scope.newMetaData = {};
 
@@ -53,6 +53,27 @@ angular.module('lotvueAssignment').controller('UserController', ['$scope','user'
     }
 
   }
+
+  $scope.upload = function (file) {
+
+
+    Upload.upload({
+        url: 'users/'+$ctrl.user.id+'/add_image',
+        data: {image: file}
+    }).then(function (resp) {
+        // console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
+        
+        $state.reload();
+    }, function (resp) {
+        console.log('Error status: ' + resp.status);
+    }, function (evt) {
+        var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+        console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+    });
+
+  };
+
+
 
 
 }]);

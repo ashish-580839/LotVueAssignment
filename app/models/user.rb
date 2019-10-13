@@ -1,9 +1,12 @@
 class User < ApplicationRecord
 
+  include Filterable
 
   has_and_belongs_to_many :roles
 
   has_many :user_metas
+
+  has_many_attached :images
 
   validates :email, presence: true
   validates :first_name, presence: true
@@ -17,5 +20,16 @@ class User < ApplicationRecord
   validates :email, uniqueness: {case_sensitive: false}, allow_blank: true
 
   before_save { self.email = email.downcase }
+
+  def self.by_active_role(value)
+    if value.to_s.downcase == "true"
+      joins(:roles).where(roles: {is_active: true})
+    end
+  end
+
+  def self.by_role_id(id)
+    joins(:roles).where(roles: {id: id})
+  end
+
 
 end
