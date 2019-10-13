@@ -4,7 +4,7 @@ class User < ApplicationRecord
 
   has_and_belongs_to_many :roles
 
-  has_many :user_metas
+  has_many :user_metas, dependent: :destroy
 
   has_many_attached :images
 
