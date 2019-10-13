@@ -6,7 +6,10 @@ Rails.application.routes.draw do
   resources :roles, only: [:index, :create ,:update] do
   end
 
-  resources :users, only: [:index, :create ] do
+  resources :users, only: [:index, :create ,:update, :show] do
+  end
+
+  resources :user_metas, only: [:index, :create, :update, :destroy ] do
   end
 
 end

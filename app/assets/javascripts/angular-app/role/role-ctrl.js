@@ -2,13 +2,11 @@ angular.module('lotvueAssignment').controller('RoleController', ['$scope','roles
 
   var $ctrl = this;
 
+  $ctrl.animationsEnabled = true;
+
   $ctrl.roles = roles.roles;
 
   $scope.newRole = {};
-
-  function roleCopy(role){
-    return {id: role.id, name: role.name};
-  }
 
   $scope.openRolePopup = function (role,size ) {
     var modalInstance = $uibModal.open({
@@ -23,7 +21,7 @@ angular.module('lotvueAssignment').controller('RoleController', ['$scope','roles
       size: size,
       resolve: {
         role: function(){
-          return roleCopy(role);
+          return angular.copy(role);
         }
       }
     });
@@ -43,6 +41,7 @@ angular.module('lotvueAssignment').controller('RoleController', ['$scope','roles
     RoleService.update({id: roleCopy.id,role: roleCopy}).$promise.then(function(resp) {
           console.log(resp);
           $ctrl.roles[index] = roleCopy;
+          alert("Role updated successfully")
           // handle success response
         })
         .catch(function(resp) {
