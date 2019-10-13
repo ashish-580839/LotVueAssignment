@@ -1,0 +1,97 @@
+<div class="container">
+  <h3>
+    User ({{$ctrl.user.first_name}} {{$ctrl.user.last_name}})
+  </h3>
+
+  <table class="table table-bordered">
+    <tbody>
+      <tr>
+        <th>
+          Name
+        </th>
+        <td>
+          {{$ctrl.user.first_name}} {{$ctrl.user.last_name}}
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Email
+        </th>
+        <td>
+          {{$ctrl.user.email}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <legend>
+    Meta Data
+  </legend>
+
+  <div class="row" >
+    <div class="col-md-12">
+
+      <div class="pull-right" >
+          <button class="btn btn-primary" ng-click="openMetaDataPopup(newMetaData)" ><span class="fa fa-plus"></span> Add Meta Data</button>
+        </div>
+    </div>
+  </div>
+  <br>
+
+  <table class="table table-bordered">
+    <thead>
+      <th>Key</th>
+      <th>Value</th>
+      <th>Action</th>
+    </thead>
+    <tbody>
+      <tr ng-repeat="metaData in $ctrl.metaDatas">
+        <td>
+          {{metaData.meta_key}}
+        </td>
+        <td>
+          {{metaData.meta_value}}
+        </td>
+        <td>
+
+          <button class="btn btn-sm btn-default" ng-click="openMetaDataPopup(metaData)"><span class="fa text-info fa-pencil"></span> Edit</button>
+
+
+          <button  class="btn btn-sm btn-default" ng-click="removeMetaData(metaData)">
+            <span class="fa text-danger fa-trash"></span>
+          </button>
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <legend>
+    Image
+  </legend>
+
+  <div class="btn btn-default" ngf-select="upload($file)" ngf-accept="'image/*'"
+  ngf-pattern="'image/*'"  ngf-max-size="'1MB'" >
+  Add Image</div>
+
+  <br>
+  <br>
+  <table class="table table-bordered">
+    <thead>
+      <th>Image</th>
+      <th>Action</th>
+    </thead>
+    <tbody>
+      <tr ng-repeat="image in $ctrl.user.images">
+        <td>
+          <img style="max-height: 200px; max-width: 200px;"  ng-src ="{{image}}" />
+        </td>
+
+        <td>
+          &nbsp;
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>

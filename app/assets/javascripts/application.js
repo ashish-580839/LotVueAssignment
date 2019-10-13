@@ -23,5 +23,7 @@
 //
 //= require loading-bar/loading-bar.min
 //
+//= require ng-file-upload/ng-file-upload.min
+//
 //= require angular-app/app.module
 //= require_tree .

@@ -3,7 +3,7 @@ class RolesController < ApplicationController
   before_action :set_role, only: [:update]
 
   def index
-    @roles = Role.all
+    @roles = Role.filter(search_params)
     if @roles.length==0
       render json: {roles: []}, status: :ok
     else
@@ -38,6 +38,10 @@ class RolesController < ApplicationController
 
   def role_params
     params.permit(role: [:name, :is_active])
+  end
+
+  def search_params
+    params.permit([:is_active])
   end
 
 end
